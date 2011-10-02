@@ -15,11 +15,11 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "saasable"
-  gem.homepage = "http://github.com/rafaelgaspar/saasable"
+  gem.homepage = "http://github.com/educa2/saasable"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "rafael.gaspar@gmail.com"
+  gem.summary = %Q{A gem for making a Multi-Tenant SaaS using MongoId}
+  gem.description = %Q{A gem for making a Multi-Tenant SaaS using MongoId}
+  gem.email = "suporte@educa2.com.br"
   gem.authors = ["Rafael Gaspar"]
   # dependencies defined in Gemfile
 end
@@ -29,11 +29,6 @@ require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
-end
-
-RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
 end
 
 task :default => :spec

@@ -1,6 +1,10 @@
 = saasable
 
-Description goes here.
+A gem for making a Multi-Tenant SaaS using MongoId
+
+== How to use it
+
+The Documentation is under-development, feel free to check the source code if you want to use it right now.
 
 == Contributing to saasable
  
@@ -14,6 +18,6 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Rafael Gaspar. See LICENSE.txt for
+Copyright (c) 2011 Educa2. See LICENSE.txt for
 further details.
 
