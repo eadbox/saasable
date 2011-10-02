@@ -26,9 +26,9 @@ module Saasable::ScopedController
         
         possible_saas = Saasable::SaasDocument.saas_document.where(:hosts => request.host)
         if possible_saas.empty?
-          raise Saasable::Errors::SaasNotFound, "no Saasable::SaasDocument found for the host: \"#{request.host}\""
+          raise Saasable::Errors::SaasNotFound, "no #{Saasable::SaasDocument.saas_document.name} found for the host: \"#{request.host}\""
         elsif possible_saas.count > 1
-          raise Saasable::Errors::MultipleSaasFound, "more then 1 Saasable::SaasDocument found for the host: \"#{request.host}\""
+          raise Saasable::Errors::MultipleSaasFound, "more then 1 #{Saasable::SaasDocument.saas_document.name} found for the host: \"#{request.host}\""
         else
           @current_saas = possible_saas.first
         end
