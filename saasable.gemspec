@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     "lib/saasable/saas_document.rb",
     "lib/saasable/scoped_controller.rb",
     "lib/saasable/scoped_document.rb",
+    "saasable.gemspec",
     "spec/saasable_spec.rb",
     "spec/spec_helper.rb"
   ]
