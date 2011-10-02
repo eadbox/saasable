@@ -2,8 +2,8 @@ module Saasable::SaasDocument
   @saas_document = nil
   
   def self.included klass
-    if @saas_document and @saas_document != klass
-      raise Saasable::Errors::MultipleSaasDocuments, "you can only have one Saasable::SaasDocument" 
+    if @saas_document and @saas_document.name != klass.name
+      raise Saasable::Errors::MultipleSaasDocuments, "you can only have one Saasable::SaasDocument"
     else
       @saas_document = klass
     end
