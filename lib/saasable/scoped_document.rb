@@ -4,6 +4,7 @@ module Saasable::ScopedDocument
   def self.included klass
     @scoped_documents << klass unless @scoped_documents.include? klass
     
+    klass.extend ClassMethods
     klass.class_eval do
       field :saas_id, :type => BSON::ObjectId
     end
@@ -11,5 +12,15 @@ module Saasable::ScopedDocument
   
   def self.scoped_documents
     @scoped_documents
+  end
+  
+  module ClassMethods
+    def validates_uniqueness_of(*args)
+      attributes = _merge_attributes(args)
+      attributes[:scope] ||= []
+      attributes[:scope] << :saas_id unless attributes[:scope].include?(:saas_id)
+      
+      validates_with(Mongoid::Validations::UniquenessValidator, attributes)
+    end
   end
 end
