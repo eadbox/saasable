@@ -16,7 +16,7 @@ module Saasable::ScopedController
 
     private
       def fetch_current_saas
-        @current_saas = Saas::SaasDocument.find_by_host!(request.host)
+        @current_saas = Saasable::SaasDocument.find_by_host!(request.host)
       end
 
       def scope_models_by_saas
