@@ -35,16 +35,7 @@ module Saasable::ScopedController
       end
 
       def scope_models_by_saas
-        Saasable::ScopedDocument.scoped_documents.each do |klass|
-          # Create a default scope without messing with the ones already in place.
-          klass.default_scoping ||= {}
-          klass.default_scoping[:where] ||= {:saas_id => nil}
-          
-          if @current_saas
-            klass.default_scoping[:where][:saas_id] = @current_saas._id
-            klass.class_eval "field :saas_id, :type => BSON::ObjectId, :default => BSON::ObjectId(\"#{@current_saas._id}\")"
-          end
-        end
+        @current_saas.activate!
       end
   end
 end
