@@ -17,10 +17,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "saasable"
   gem.homepage = "http://github.com/educa2/saasable"
   gem.license = "MIT"
-  gem.summary = %Q{A gem for making a Multi-Tenant SaaS using MongoId}
-  gem.description = %Q{A gem for making a Multi-Tenant SaaS using MongoId}
+  gem.summary = %Q{A gem for making a Multi-Tenant SaaS using Mongoid}
+  gem.description = %Q{A gem for making a Multi-Tenant SaaS using Mongoid}
   gem.email = "suporte@educa2.com.br"
-  gem.authors = ["Rafael Gaspar"]
+  gem.authors = ["Educa2", "Rafael Gaspar"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
