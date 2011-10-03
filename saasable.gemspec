@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{saasable}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Rafael Gaspar}]
-  s.date = %q{2011-10-02}
-  s.description = %q{A gem for making a Multi-Tenant SaaS using MongoId}
+  s.authors = [%q{Educa2}, %q{Rafael Gaspar}]
+  s.date = %q{2011-10-03}
+  s.description = %q{A gem for making a Multi-Tenant SaaS using Mongoid}
   s.email = %q{suporte@educa2.com.br}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.licenses = [%q{MIT}]
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.5}
-  s.summary = %q{A gem for making a Multi-Tenant SaaS using MongoId}
+  s.summary = %q{A gem for making a Multi-Tenant SaaS using Mongoid}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
