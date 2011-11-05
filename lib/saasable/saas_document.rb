@@ -11,7 +11,11 @@ module Saasable::SaasDocument
     klass.extend ClassMethods
     klass.send(:include, InstanceMethods)
     klass.class_eval do
+      # Fields
       field :hosts, :type => Array
+      
+      # Validations
+      validates_uniqueness_of :hosts
     end
   end
   
