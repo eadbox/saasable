@@ -1,4 +1,4 @@
-require "saasable/railties/helpers"
+require "saasable/railties"
 
 class Saasable::Railtie < Rails::Railtie
   config.app_middleware.use Saasable::Middleware
