@@ -1,6 +1,6 @@
 = saasable
 
-A gem for making a Multi-Tenant SaaS using MongoId
+A gem for making a Multi-Tenant SaaS using Mongoid
 
 == How to use it
 
