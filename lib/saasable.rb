@@ -9,3 +9,6 @@ module Saasable
   autoload :SaasDocument, "saasable/saas_document"
   autoload :ScopedDocument, "saasable/scoped_document"
 end
+
+# Railtie
+require "saasable/railtie" if defined?(Rails)
