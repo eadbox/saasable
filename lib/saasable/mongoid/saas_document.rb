@@ -1,4 +1,4 @@
-module Saasable::SaasDocument
+module Saasable::Mongoid::SaasDocument
   @saas_document = nil
   
   def self.included klass
@@ -25,7 +25,7 @@ module Saasable::SaasDocument
   
   module InstanceMethods
     def activate!
-      Saasable::ScopedDocument.scoped_documents.each do |klass|
+      Saasable::Mongoid::ScopedDocument.scoped_documents.each do |klass|
         # Create a default scope without messing with the ones already in place.
         klass.default_scoping ||= {}
         klass.default_scoping[:where] ||= {:saas_id => nil}
@@ -38,7 +38,7 @@ module Saasable::SaasDocument
   
   module ClassMethods
     def find_by_host! a_host
-      if Saasable::SaasDocument.saas_document.nil?
+      if Saasable::Mongoid::SaasDocument.saas_document.nil?
         if Rails.env.production?
           raise Saasable::Errors::NoSaasDocuments, "you need to set one Saasable::SaasDocument"
         else
@@ -46,11 +46,11 @@ module Saasable::SaasDocument
         end
       end
       
-      possible_saas = Saasable::SaasDocument.saas_document.where(:hosts => a_host)
+      possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(:hosts => a_host)
       if possible_saas.empty?
-        raise Saasable::Errors::SaasNotFound, "no #{Saasable::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
+        raise Saasable::Errors::SaasNotFound, "no #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
       elsif possible_saas.count > 1
-        raise Saasable::Errors::MultipleSaasFound, "more then 1 #{Saasable::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
+        raise Saasable::Errors::MultipleSaasFound, "more then 1 #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
       else
         return possible_saas.first
       end

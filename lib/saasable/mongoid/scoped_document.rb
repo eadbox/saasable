@@ -1,4 +1,4 @@
-module Saasable::ScopedDocument
+module Saasable::Mongoid::ScopedDocument
   @scoped_documents = []
   
   def self.included klass

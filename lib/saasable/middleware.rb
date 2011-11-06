@@ -15,6 +15,6 @@ class Saasable::Middleware
   
   private
     def saas_for_host hostname
-      Saasable::SaasDocument.saas_document.find_by_host!(hostname)
+      Saasable::Mongoid::SaasDocument.saas_document.find_by_host!(hostname)
     end
 end
