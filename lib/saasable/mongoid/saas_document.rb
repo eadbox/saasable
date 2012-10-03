@@ -17,6 +17,8 @@ module Saasable::Mongoid::SaasDocument
       # Validations
       validates_uniqueness_of :hosts
     end
+    
+    klass.instance_variable_set("@_after_activate_chain", [])
   end
   
   def self.saas_document
@@ -33,6 +35,8 @@ module Saasable::Mongoid::SaasDocument
         klass.default_scoping[:where][:saas_id] = self._id
         klass.class_eval "field :saas_id, :type => BSON::ObjectId, :default => BSON::ObjectId(\"#{self._id}\")"
       end
+      
+      self.class.instance_variable_get("@_after_activate_chain").each { |method_name| send(method_name) }
     end
   end
   
@@ -54,6 +58,10 @@ module Saasable::Mongoid::SaasDocument
       else
         return possible_saas.first
       end
+    end
+    
+    def after_activate method_name
+      @_after_activate_chain << method_name
     end
   end
 end

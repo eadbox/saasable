@@ -8,6 +8,3 @@ module Saasable
   # Mongoid
   autoload :Mongoid, "saasable/mongoid"
 end
-
-# Railtie
-require "saasable/railtie" if defined?(Rails)
