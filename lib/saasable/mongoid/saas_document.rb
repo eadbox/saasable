@@ -19,6 +19,7 @@ module Saasable::Mongoid::SaasDocument
     end
     
     klass.instance_variable_set("@_after_activate_chain", [])
+    klass.instance_variable_set("@_after_deactivate_chain", [])
   end
   
   def self.saas_document
@@ -38,9 +39,24 @@ module Saasable::Mongoid::SaasDocument
       
       self.class.instance_variable_get("@_after_activate_chain").each { |method_name| send(method_name) }
     end
+    
+    def deactivate!
+      self.class.deactivate_all!
+    end
   end
   
   module ClassMethods
+    def deactivate_all!
+      Saasable::Mongoid::ScopedDocument.scoped_documents.each do |klass|
+        klass.default_scoping[:where].delete(:saas_id) if klass.default_scoping && klass.default_scoping[:where]
+        
+        klass.fields["saas_id"].default_val = nil
+        klass.fields["saas_id"].options.delete(:default)
+      end
+      
+      @_after_deactivate_chain.each { |method_name| send(method_name) }
+    end    
+    
     def find_by_host! a_host
       if Saasable::Mongoid::SaasDocument.saas_document.nil?
         if Rails.env.production?
@@ -62,6 +78,10 @@ module Saasable::Mongoid::SaasDocument
     
     def after_activate method_name
       @_after_activate_chain << method_name
+    end
+    
+    def after_deactivate method_name
+      @_after_deactivate_chain << method_name
     end
   end
 end
