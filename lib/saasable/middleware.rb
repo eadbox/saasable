@@ -8,13 +8,13 @@ class Saasable::Middleware
     Rails::Mongoid.load_models(Rails.application) if defined?(Rails::Mongoid)
     
     env[:saasable] = {:current_saas => saas_for_host(env["SERVER_NAME"])}
-    env[:saasable][:current_saas].activate!
+    env[:saasable][:current_saas].activate! if env[:saasable][:current_saas]
         
     @app.call env
   end
   
   private
     def saas_for_host hostname
-      Saasable::Mongoid::SaasDocument.saas_document.find_by_host!(hostname)
+      Saasable::Mongoid::SaasDocument.saas_document.find_by_host!(hostname) rescue nil
     end
 end
