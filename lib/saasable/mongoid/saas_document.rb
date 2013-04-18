@@ -16,6 +16,9 @@ module Saasable::Mongoid::SaasDocument
       
       # Validations
       validates_uniqueness_of :hosts
+      
+      # Indexes
+      index :hosts
     end
     
     klass.instance_variable_set("@_after_activate_chain", [])
