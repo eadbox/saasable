@@ -18,6 +18,7 @@ module Saasable::Mongoid::SaasDocument
       validates_uniqueness_of :hosts
     end
     
+    klass.instance_variable_set("@_active_saas", nil)
     klass.instance_variable_set("@_after_activate_chain", [])
     klass.instance_variable_set("@_after_deactivate_chain", [])
   end
@@ -37,6 +38,7 @@ module Saasable::Mongoid::SaasDocument
         klass.class_eval "field :saas_id, :type => BSON::ObjectId, :default => BSON::ObjectId(\"#{self._id}\")"
       end
       
+      self.class.instance_variable_set("@_active_saas", self)
       self.class.instance_variable_get("@_after_activate_chain").each { |method_name| send(method_name) }
     end
     
@@ -54,7 +56,8 @@ module Saasable::Mongoid::SaasDocument
         klass.fields["saas_id"].options.delete(:default)
       end
       
-      @_after_deactivate_chain.each { |method_name| send(method_name) }
+      last_active_saas, @_active_saas = active_saas, nil
+      @_after_deactivate_chain.each { |method_name| last_active_saas.send(method_name) }
     end    
     
     def find_by_host! a_host
@@ -76,12 +79,24 @@ module Saasable::Mongoid::SaasDocument
       end
     end
     
-    def after_activate method_name
-      @_after_activate_chain << method_name
+    def active_saas
+      @_active_saas
     end
     
-    def after_deactivate method_name
-      @_after_deactivate_chain << method_name
+    def after_activate *method_names
+      @_after_activate_chain += method_names
+    end
+    
+    def after_deactivate *method_names
+      @_after_deactivate_chain += method_names
+    end
+    
+    def remove_after_activate *method_names
+      @_after_activate_chain -= method_names
+    end
+    
+    def remove_after_deactivate *method_names
+      @_after_deactivate_chain -= method_names
     end
   end
 end

@@ -11,7 +11,9 @@ class Saasable::Middleware
     env[:saasable] = {:current_saas => saas_for_host(env["SERVER_NAME"])}
     env[:saasable][:current_saas].activate! if env[:saasable][:current_saas]
 
-    @app.call env
+    @app.call(env).tap do
+      env[:saasable][:current_saas].deactivate! if env[:saasable][:current_saas]
+    end
   end
 
   private
