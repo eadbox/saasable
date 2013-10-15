@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "saasable"
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Educa2", "Rafael Gaspar"]
-  s.date = "2013-04-10"
+  s.date = "2013-04-18"
   s.description = "A gem for making a Multi-Tenant SaaS using Mongoid"
   s.email = "suporte@educa2.com.br"
   s.extra_rdoc_files = [

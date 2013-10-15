@@ -6,8 +6,10 @@ module Saasable::Mongoid::ScopedDocument
 
     klass.extend ClassMethods
     klass.class_eval do
+      # Fields
       field :saas_id, :type => BSON::ObjectId
       
+      # Indexes
       index :saas_id
       index [[:saad_id, 1], [:_id, 1]]
     end
