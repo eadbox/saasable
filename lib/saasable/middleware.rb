@@ -17,6 +17,8 @@ class Saasable::Middleware
 
   private
     def saas_for_host hostname
-      Saasable::Mongoid::SaasDocument.saas_document.find_by_host!(hostname) rescue nil
+      Saasable::Mongoid::SaasDocument.saas_document.find_by_host!(hostname)
+    rescue Saasable::Errors::SaasNotFound
+      nil # Saas not found is treated by the Rails Helper
     end
 end
