@@ -10,8 +10,12 @@ module Saasable::Mongoid::ScopedDocument
       field :saas_id, :type => BSON::ObjectId
       
       # Indexes
-      index :saas_id
-      index [[:saad_id, 1], [:_id, 1]]
+      index({saas_id: 1})
+      index({saad_id: 1, _id: 1})
+      
+      class << self
+        alias_method_chain :index, :saasable
+      end
     end
   end
 
@@ -33,7 +37,12 @@ module Saasable::Mongoid::ScopedDocument
       attributes[:scope] ||= []
       attributes[:scope] << :saas_id unless attributes[:scope].include?(:saas_id)
 
-      validates_with(Mongoid::Validations::UniquenessValidator, attributes)
+      validates_with(Mongoid::Validatable::UniquenessValidator, attributes)
+    end
+    
+    def index_with_saasable(spec, options = nil)    
+      index_without_saasable(spec, options)
+      index_without_saasable(spec.merge({saas_id: 1}), options) unless spec.include?(:saas_id)
     end
   end
 end

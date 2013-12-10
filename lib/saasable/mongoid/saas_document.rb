@@ -18,7 +18,7 @@ module Saasable::Mongoid::SaasDocument
       validates_uniqueness_of :hosts
       
       # Indexes
-      index :hosts
+      index({hosts: 1})
     end
     
     klass.instance_variable_set("@_active_saas", nil)
@@ -34,11 +34,10 @@ module Saasable::Mongoid::SaasDocument
     def activate!
       Saasable::Mongoid::ScopedDocument.scoped_documents.each do |klass|
         # Create a default scope without messing with the ones already in place.
-        klass.default_scoping ||= {}
-        klass.default_scoping[:where] ||= {:saas_id => nil}
+        saasble_criteria = Mongoid::Criteria.new(klass).where(saas_id: self._id)
+        klass.default_scoping = klass.default_scoping.call.merge(saasble_criteria).to_proc        
         
-        klass.default_scoping[:where][:saas_id] = self._id
-        klass.class_eval "field :saas_id, :type => BSON::ObjectId, :default => BSON::ObjectId(\"#{self._id}\")"
+        klass.class_eval "field :saas_id, :type => BSON::ObjectId, :default => BSON::ObjectId.from_string(\"#{self._id}\")"
       end
       
       self.class.instance_variable_set("@_active_saas", self)
@@ -53,7 +52,8 @@ module Saasable::Mongoid::SaasDocument
   module ClassMethods
     def deactivate_all!
       Saasable::Mongoid::ScopedDocument.scoped_documents.each do |klass|
-        klass.default_scoping[:where].delete(:saas_id) if klass.default_scoping && klass.default_scoping[:where]
+        saasble_criteria = Mongoid::Criteria.new(klass).where(saas_id: @_active_saas._id)
+        klass.default_scoping = klass.default_scoping.call.remove_scoping(saasble_criteria).to_proc        
         
         klass.fields["saas_id"].default_val = nil
         klass.fields["saas_id"].options.delete(:default)

@@ -1,15 +1,30 @@
+GIT
+  remote: git://github.com/mongoid/mongoid.git
+  revision: bbc0df51f9c1fec19dd15e4c5d478d6474adefdc
+  specs:
+    mongoid (4.0.0.alpha1)
+      activemodel (~> 4.0.0)
+      moped (~> 2.0.beta4)
+      origin (~> 1.0)
+      tzinfo (~> 0.3.37)
+
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (3.2.15)
-      activesupport (= 3.2.15)
-      builder (~> 3.0.0)
-    activesupport (3.2.15)
+    activemodel (4.0.2)
+      activesupport (= 4.0.2)
+      builder (~> 3.1.0)
+    activesupport (4.0.2)
       i18n (~> 0.6, >= 0.6.4)
-      multi_json (~> 1.0)
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
+      thread_safe (~> 0.1)
+      tzinfo (~> 0.3.37)
     addressable (2.3.5)
-    bson (1.9.2)
-    builder (3.0.4)
+    atomic (1.1.14)
+    bson (2.0.0)
+    builder (3.1.4)
+    connection_pool (1.2.0)
     diff-lcs (1.2.5)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
@@ -24,7 +39,7 @@ GEM
     hashie (2.0.5)
     highline (1.6.20)
     httpauth (0.2.0)
-    i18n (0.6.5)
+    i18n (0.6.9)
     jeweler (1.8.8)
       builder
       bundler (~> 1.0)
@@ -37,12 +52,11 @@ GEM
     json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    mongo (1.9.2)
-      bson (~> 1.9.2)
-    mongoid (2.5.2)
-      activemodel (~> 3.1)
-      mongo (~> 1.7)
-      tzinfo (~> 0.3.22)
+    minitest (4.7.5)
+    moped (2.0.0.beta4)
+      bson (~> 2.0)
+      connection_pool (~> 1.2)
+      optionable (~> 0.2.0)
     multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
@@ -54,6 +68,8 @@ GEM
       multi_json (~> 1.0)
       multi_xml (~> 0.5)
       rack (~> 1.2)
+    optionable (0.2.0)
+    origin (1.1.0)
     rack (1.5.2)
     rake (10.1.0)
     rdoc (4.0.1)
@@ -66,6 +82,8 @@ GEM
     rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.4)
+    thread_safe (0.1.3)
+      atomic
     tzinfo (0.3.38)
 
 PLATFORMS
@@ -74,6 +92,6 @@ PLATFORMS
 DEPENDENCIES
   bundler
   jeweler
-  mongoid (~> 2.5.0)
+  mongoid (~> 4.0.0.alpha1)!
   rdoc
   rspec
