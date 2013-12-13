@@ -72,7 +72,7 @@ module Saasable::Mongoid::SaasDocument
         end
       end
       
-      possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(:hosts => a_host)
+      possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(:hosts => a_host).to_a
       if possible_saas.empty?
         raise Saasable::Errors::SaasNotFound, "no #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
       elsif possible_saas.count > 1
