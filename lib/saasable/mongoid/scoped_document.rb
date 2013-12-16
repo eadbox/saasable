@@ -8,11 +8,11 @@ module Saasable::Mongoid::ScopedDocument
     klass.class_eval do
       # Fields
       field :saas_id, :type => BSON::ObjectId
-      
+
       # Indexes
       index({saas_id: 1})
       index({saad_id: 1, _id: 1})
-      
+
       class << self
         alias_method_chain :index, :saasable
       end
@@ -39,9 +39,9 @@ module Saasable::Mongoid::ScopedDocument
 
       validates_with(Mongoid::Validatable::UniquenessValidator, attributes)
     end
-    
-    def index_with_saasable(spec, options = nil)    
-      index_without_saasable(spec, options)
+
+    def index_with_saasable(spec, options = nil) 
+      index_without_saasable(spec, options.except(:unique)) # Never create this one with unique since it's only unique in the saas scope.
       index_without_saasable(spec.merge({saas_id: 1}), options) unless spec.include?(:saas_id)
     end
   end
