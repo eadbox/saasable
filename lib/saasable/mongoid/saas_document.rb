@@ -34,7 +34,7 @@ module Saasable::Mongoid::SaasDocument
     def activate!
       Saasable::Mongoid::ScopedDocument.scoped_documents.each do |klass|
         saasble_criteria = Mongoid::Criteria.new(klass).where(saas_id: self._id)
-        klass.default_scoping = klass.default_scoping.call.merge(saasble_criteria).to_proc
+        klass.default_scoping = klass.default_scoping? ? klass.default_scoping.call.merge(saasble_criteria).to_proc : saasble_criteria.to_proc
         
         klass.fields["saas_id"].default_val = self._id
         klass.fields["saas_id"].options[:default] = self._id
