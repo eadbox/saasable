@@ -42,7 +42,7 @@ module Saasable::Mongoid::ScopedDocument
 
     def index_with_saasable(spec, options = nil)
       index_without_saasable(spec, options.merge({unique: false}))
-      index_without_saasable(spec.merge({saas_id: 1}), options) unless spec.include?(:saas_id)
+      index_without_saasable({saas_id: 1}.merge(spec), options) unless spec.include?(:saas_id)
     end
   end
 end
