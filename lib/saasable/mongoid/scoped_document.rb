@@ -40,7 +40,7 @@ module Saasable::Mongoid::ScopedDocument
       validates_with(Mongoid::Validatable::UniquenessValidator, attributes)
     end
 
-    def index_with_saasable(spec, options = nil)
+    def index_with_saasable(spec, options = {})
       index_without_saasable(spec, options.merge({unique: false}))
       index_without_saasable({saas_id: 1}.merge(spec), options) unless spec.include?(:saas_id)
     end
