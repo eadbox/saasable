@@ -9,7 +9,7 @@ class Saasable::Middleware
   def call env
     return @app.call(env) if env['PATH_INFO'].start_with?('/assets')
 
-    env[:saasable] = {:current_saas => saas_for_host(env['SERVER_NAME'])}
+    env[:saasable] = {current_saas: saas_for_host(env['SERVER_NAME'])}
     env[:saasable][:current_saas].activate! if env[:saasable][:current_saas]
 
     @app.call(env).tap do

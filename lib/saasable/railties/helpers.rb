@@ -5,7 +5,7 @@ module Saasable::Railties
       klass.send(:include, InstanceMethods)
       klass.class_eval do
         helper_method :current_saas
-        
+
         before_filter :_redirect_if_saas_not_found unless Rails.env.development?
         saas_not_found_redirect_to "/404.html"
 
