@@ -1,13 +1,12 @@
 module Saasable::Mongoid::ScopedDocument
-  @scoped_documents = []
-
   def self.included klass
-    @scoped_documents << klass unless @scoped_documents.include? klass
-
     klass.extend ClassMethods
     klass.class_eval do
       # Fields
-      field :saas_id, :type => BSON::ObjectId
+      field :saas_id, type: BSON::ObjectId, default: ->{ Saasable::Mongoid::SaasDocument.active_saas }
+
+      # Default scope
+      default_scope ->{ Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas) : all }
 
       # Indexes
       index({saas_id: 1})
@@ -17,10 +16,6 @@ module Saasable::Mongoid::ScopedDocument
         alias_method_chain :index, :saasable
       end
     end
-  end
-
-  def self.scoped_documents
-    @scoped_documents
   end
 
   def saas= a_saas

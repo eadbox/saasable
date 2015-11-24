@@ -36,7 +36,7 @@ module Saasable::Railties
 
     module InstanceMethods
       def current_saas
-        @current_saas ||= request.env[:saasable][:current_saas]
+        Saasable::Mongoid::SaasDocument.active_saas
       end
     end
   end
