@@ -55,7 +55,7 @@ module Saasable::Mongoid::SaasDocument
         raise Saasable::Errors::NoSaasDocuments, "you need to set one Saasable::SaasDocument"
       end
 
-      possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(hosts: a_host.gsub(/^www\./, '')).to_a
+      possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(hosts: a_host).to_a
       if possible_saas.empty?
         raise Saasable::Errors::SaasNotFound, "no #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
       elsif possible_saas.count > 1
