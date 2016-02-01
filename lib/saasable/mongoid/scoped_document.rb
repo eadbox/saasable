@@ -3,10 +3,10 @@ module Saasable::Mongoid::ScopedDocument
     klass.extend ClassMethods
     klass.class_eval do
       # Fields
-      field :saas_id, type: BSON::ObjectId, default: ->{ Saasable::Mongoid::SaasDocument.active_saas }
+      field :saas_id, type: BSON::ObjectId, default: ->{ Saasable::Mongoid::SaasDocument.active_saas._id }
 
       # Default scope
-      default_scope ->{ Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas) : all }
+      default_scope ->{ Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas._id) : all }
 
       # Indexes
       index({saas_id: 1})
