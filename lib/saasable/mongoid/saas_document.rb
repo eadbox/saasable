@@ -18,7 +18,7 @@ module Saasable::Mongoid::SaasDocument
       validates_uniqueness_of :hosts
 
       # Indexes
-      index({hosts: 1})
+      index({hosts: 1}, unique: true)
     end
 
     klass.instance_variable_set("@_after_activate_chain", [])
@@ -55,13 +55,11 @@ module Saasable::Mongoid::SaasDocument
         raise Saasable::Errors::NoSaasDocuments, "you need to set one Saasable::SaasDocument"
       end
 
-      possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(hosts: a_host).to_a
-      if possible_saas.empty?
+      possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(hosts: a_host).first
+      if possible_saas.nil?
         raise Saasable::Errors::SaasNotFound, "no #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
-      elsif possible_saas.count > 1
-        raise Saasable::Errors::MultipleSaasFound, "more then 1 #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
       else
-        return possible_saas.first
+        return possible_saas
       end
     end
 

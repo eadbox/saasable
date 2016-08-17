@@ -10,7 +10,7 @@ module Saasable::Mongoid::ScopedDocument
 
       # Indexes
       index({saas_id: 1})
-      index({saad_id: 1, _id: 1})
+      index({saad_id: 1, _id: 1}, unique: true)
 
       class << self
         alias_method_chain :index, :saasable
@@ -36,8 +36,7 @@ module Saasable::Mongoid::ScopedDocument
     end
 
     def index_with_saasable(spec, options = {})
-      index_without_saasable(spec, options.merge({unique: false}))
-      index_without_saasable({saas_id: 1}.merge(spec), options) unless spec.include?(:saas_id)
+      index_without_saasable({saas_id: 1}.merge(spec), options)
     end
   end
 end
