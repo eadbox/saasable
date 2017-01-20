@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "mongoid", ">= 4.0.0"
+gem "mongoid", "~> 5.0"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
