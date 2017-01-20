@@ -10,7 +10,7 @@ module Saasable::Mongoid::ScopedDocument
 
       # Indexes
       index({saas_id: 1})
-      index({saad_id: 1, _id: 1}, unique: true)
+      index({saas_id: 1, _id: 1}, unique: true)
 
       class << self
         alias_method_chain :index, :saasable
