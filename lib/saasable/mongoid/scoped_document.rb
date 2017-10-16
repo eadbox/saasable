@@ -3,10 +3,10 @@ module Saasable::Mongoid::ScopedDocument
     klass.extend ClassMethods
     klass.class_eval do
       # Fields
-      field :saas_id, type: BSON::ObjectId, default: ->{ Saasable::Mongoid::SaasDocument.active_saas }
+      field :saas_id, type: BSON::ObjectId, default: -> { Saasable::Mongoid::SaasDocument.active_saas }
 
       # Default scope
-      default_scope ->{ Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas) : all }
+      default_scope -> { Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas) : all }
 
       # Indexes
       index({saas_id: 1})
@@ -23,7 +23,7 @@ module Saasable::Mongoid::ScopedDocument
   end
 
   def saas
-    @saas ||= Saasable::Mongoid::SaasDocument.saas_document.find(self.saas_id)
+    @saas ||= Saasable::Mongoid::SaasDocument.saas_document.find(saas_id) if saas_id
   end
 
   module ClassMethods
