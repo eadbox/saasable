@@ -6,11 +6,13 @@ module Saasable::Mongoid::ScopedDocument
       field :saas_id, type: BSON::ObjectId, default: -> { Saasable::Mongoid::SaasDocument.active_saas }
 
       # Default scope
-      default_scope -> { Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas) : all }
+      default_scope lambda do
+        Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas) : all
+      end
 
       # Indexes
-      index({saas_id: 1})
-      index({saad_id: 1, _id: 1})
+      index(saas_id: 1)
+      index(saad_id: 1, _id: 1)
 
       class << self
         alias_method_chain :index, :saasable
@@ -36,7 +38,7 @@ module Saasable::Mongoid::ScopedDocument
     end
 
     def index_with_saasable(spec, options = {})
-      index_without_saasable(spec, options.merge({unique: false}))
+      index_without_saasable(spec, options.merge(unique: false))
       index_without_saasable({saas_id: 1}.merge(spec), options) unless spec.include?(:saas_id)
     end
   end
