@@ -1,0 +1,49 @@
+AllCops:
+  TargetRubyVersion: 2.4
+
+Metrics/AbcSize:
+  Exclude:
+    - "lib/saasable/mongoid/scoped_document.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "saasable.gemspec"
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 16
+
+# Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
+# URISchemes: http, https
+Metrics/LineLength:
+  Max: 120
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: nested, compact
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/Documentation:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/RescueModifier:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: with_first_parameter, with_fixed_indentation
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
+# SupportedStyles: aligned, indented
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
+# SupportedStyles: space, no_space
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
