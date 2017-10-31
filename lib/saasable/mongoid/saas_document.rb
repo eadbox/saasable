@@ -6,9 +6,9 @@ module Saasable::Mongoid::SaasDocument
   def self.included(klass)
     if @saas_document && (@saas_document.name != klass.name)
       raise Saasable::Errors::MultipleSaasDocuments, 'you can only have one Saasable::SaasDocument'
-    else
-      @saas_document = klass
     end
+
+    @saas_document = klass
 
     klass.extend ClassMethods
     klass.send(:include, InstanceMethods)
@@ -60,10 +60,11 @@ module Saasable::Mongoid::SaasDocument
 
       possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(hosts: a_host).first
       if possible_saas.nil?
-        raise Saasable::Errors::SaasNotFound, "no #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
-      else
-        return possible_saas
+        raise Saasable::Errors::SaasNotFound,
+          "no #{Saasable::Mongoid::SaasDocument.saas_document.name} found for the host: \"#{a_host}\""
       end
+
+      possible_saas
     end
 
     def active_saas

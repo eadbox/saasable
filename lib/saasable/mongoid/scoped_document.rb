@@ -8,7 +8,13 @@ module Saasable::Mongoid::ScopedDocument
       field :saas_id, type: BSON::ObjectId, default: -> { Saasable::Mongoid::SaasDocument.active_saas._id }
 
       # Default scope
-      default_scope -> { Saasable::Mongoid::SaasDocument.active_saas ? where(saas_id: Saasable::Mongoid::SaasDocument.active_saas._id) : all }
+      default_scope do
+        if Saasable::Mongoid::SaasDocument.active_saas
+          where(saas_id: Saasable::Mongoid::SaasDocument.active_saas._id)
+        else
+          all
+        end
+      end
 
       # Indexes
       index(saas_id: 1)
