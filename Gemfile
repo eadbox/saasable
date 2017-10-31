@@ -1,13 +1,15 @@
-source "http://rubygems.org"
+# frozen_string_literal: true
 
-gem "mongoid", "~> 5.0"
+source 'http://rubygems.org'
+
+gem 'mongoid', '~> 5.0'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
-  gem "rspec"
-  gem "bundler"
-  gem "jeweler"
+  gem 'bundler'
+  gem 'jeweler'
   gem 'rdoc'
+  gem 'rspec'
   gem 'rubocop'
 end

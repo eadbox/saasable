@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Saasable::Mongoid::SaasDocument
   @saas_document = nil
 
-  def self.included klass
-    if @saas_document and @saas_document.name != klass.name
-      raise Saasable::Errors::MultipleSaasDocuments, "you can only have one Saasable::SaasDocument"
+  def self.included(klass)
+    if @saas_document && (@saas_document.name != klass.name)
+      raise Saasable::Errors::MultipleSaasDocuments, 'you can only have one Saasable::SaasDocument'
     else
       @saas_document = klass
     end
@@ -21,8 +23,8 @@ module Saasable::Mongoid::SaasDocument
       index({hosts: 1}, unique: true)
     end
 
-    klass.instance_variable_set("@_after_activate_chain", [])
-    klass.instance_variable_set("@_after_deactivate_chain", [])
+    klass.instance_variable_set('@_after_activate_chain', [])
+    klass.instance_variable_set('@_after_deactivate_chain', [])
   end
 
   def self.saas_document
@@ -36,7 +38,7 @@ module Saasable::Mongoid::SaasDocument
   module InstanceMethods
     def activate!
       Thread.current[:saasable_active_saas] = self
-      self.class.instance_variable_get("@_after_activate_chain").each { |method_name| send(method_name) }
+      self.class.instance_variable_get('@_after_activate_chain').each { |method_name| send(method_name) }
     end
 
     def deactivate!
@@ -46,13 +48,14 @@ module Saasable::Mongoid::SaasDocument
 
   module ClassMethods
     def deactivate_all!
-      last_active_saas, Thread.current[:saasable_active_saas] = active_saas, nil
+      last_active_saas = active_saas
+      Thread.current[:saasable_active_saas] = nil
       @_after_deactivate_chain.each { |method_name| last_active_saas.send(method_name) }
     end
 
-    def find_by_host! a_host
+    def find_by_host!(a_host)
       if Saasable::Mongoid::SaasDocument.saas_document.nil?
-        raise Saasable::Errors::NoSaasDocuments, "you need to set one Saasable::SaasDocument"
+        raise Saasable::Errors::NoSaasDocuments, 'you need to set one Saasable::SaasDocument'
       end
 
       possible_saas = Saasable::Mongoid::SaasDocument.saas_document.where(hosts: a_host).first
@@ -67,19 +70,19 @@ module Saasable::Mongoid::SaasDocument
       Thread.current[:saasable_active_saas]
     end
 
-    def after_activate *method_names
+    def after_activate(*method_names)
       @_after_activate_chain += method_names
     end
 
-    def after_deactivate *method_names
+    def after_deactivate(*method_names)
       @_after_deactivate_chain += method_names
     end
 
-    def remove_after_activate *method_names
+    def remove_after_activate(*method_names)
       @_after_activate_chain -= method_names
     end
 
-    def remove_after_deactivate *method_names
+    def remove_after_deactivate(*method_names)
       @_after_deactivate_chain -= method_names
     end
   end
