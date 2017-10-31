@@ -13,14 +13,13 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = 'saasable'
-  gem.homepage = 'http://github.com/educa2/saasable'
+  gem.homepage = 'http://github.com/eadbox/saasable'
   gem.license = 'MIT'
   gem.summary = %(A gem for making a Multi-Tenant SaaS using Mongoid)
   gem.description = %(A gem for making a Multi-Tenant SaaS using Mongoid)
-  gem.email = 'suporte@educa2.com.br'
-  gem.authors = ['Educa2', 'Rafael Gaspar']
+  gem.email = 'suporte@eadbox.com'
+  gem.authors = ['Eadbox', 'Rafael Gaspar']
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
