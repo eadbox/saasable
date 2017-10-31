@@ -31,7 +31,7 @@ module Saasable::Mongoid::ScopedDocument
   end
 
   def saas
-    @saas ||= Saasable::Mongoid::SaasDocument.saas_document.find(saas_id)
+    @saas ||= Saasable::Mongoid::SaasDocument.saas_document.find(saas_id) if saas_id
   end
 
   module ClassMethods
