@@ -1,17 +1,18 @@
 AllCops:
   TargetRubyVersion: 2.4
+  Exclude:
+    - 'saasable.gemspec'
 
 Metrics/AbcSize:
   Exclude:
-    - "lib/saasable/mongoid/scoped_document.rb"
-
-Metrics/BlockLength:
-  Exclude:
-    - "saasable.gemspec"
+    - 'lib/saasable/mongoid/scoped_document.rb'
 
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
-  Max: 16
+  Exclude:
+    - 'lib/saasable/mongoid/saas_document.rb'
+    - 'lib/saasable/mongoid/scoped_document.rb'
+    - 'lib/saasable/railties/helpers.rb'
 
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
 # URISchemes: http, https

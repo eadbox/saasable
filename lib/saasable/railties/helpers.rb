@@ -8,10 +8,12 @@ module Saasable::Railties
       klass.class_eval do
         helper_method :current_saas
 
-        before_filter :_redirect_if_saas_not_found unless Rails.env.development?
+        before_action :_redirect_if_saas_not_found unless Rails.env.development?
         saas_not_found_redirect_to '/404.html'
 
         private
+
+        def _redirect_if_saas_not_found; end
 
         def _skip_saasable
           current_saas&.deactivate!
@@ -32,8 +34,8 @@ module Saasable::Railties
       end
 
       def skip_saasable(options)
-        skip_before_filter :_redirect_if_saas_not_found, options
-        before_filter :_skip_saasable, options
+        skip_before_action :_redirect_if_saas_not_found, options.merge(raise: false)
+        before_action :_skip_saasable, options
       end
     end
 

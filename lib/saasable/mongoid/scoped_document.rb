@@ -21,7 +21,8 @@ module Saasable::Mongoid::ScopedDocument
       index({saas_id: 1, _id: 1}, unique: true)
 
       class << self
-        alias_method_chain :index, :saasable
+        alias_method :index_without_saasable, :index
+        alias_method :index, :index_with_saasable
       end
     end
   end

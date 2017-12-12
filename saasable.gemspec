@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Eadbox".freeze, "Rafael Gaspar".freeze]
-  s.date = "2017-10-31"
+  s.date = "2018-01-11"
   s.description = "A gem for making a Multi-Tenant SaaS using Mongoid".freeze
   s.email = "suporte@eadbox.com".freeze
   s.extra_rdoc_files = [
@@ -52,14 +52,14 @@ Gem::Specification.new do |s|
     s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<mongoid>.freeze, ["~> 5.0"])
+      s.add_runtime_dependency(%q<mongoid>.freeze, ["~> 6.0"])
       s.add_development_dependency(%q<bundler>.freeze, [">= 0"])
       s.add_development_dependency(%q<jeweler>.freeze, [">= 0"])
       s.add_development_dependency(%q<rdoc>.freeze, [">= 0"])
       s.add_development_dependency(%q<rspec>.freeze, [">= 0"])
       s.add_development_dependency(%q<rubocop>.freeze, [">= 0"])
     else
-      s.add_dependency(%q<mongoid>.freeze, ["~> 5.0"])
+      s.add_dependency(%q<mongoid>.freeze, ["~> 6.0"])
       s.add_dependency(%q<bundler>.freeze, [">= 0"])
       s.add_dependency(%q<jeweler>.freeze, [">= 0"])
       s.add_dependency(%q<rdoc>.freeze, [">= 0"])
@@ -67,7 +67,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rubocop>.freeze, [">= 0"])
     end
   else
-    s.add_dependency(%q<mongoid>.freeze, ["~> 5.0"])
+    s.add_dependency(%q<mongoid>.freeze, ["~> 6.0"])
     s.add_dependency(%q<bundler>.freeze, [">= 0"])
     s.add_dependency(%q<jeweler>.freeze, [">= 0"])
     s.add_dependency(%q<rdoc>.freeze, [">= 0"])
