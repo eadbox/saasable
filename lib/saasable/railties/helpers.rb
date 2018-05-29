@@ -27,7 +27,10 @@ module Saasable::Railties
           private
             def _redirect_if_saas_not_found
               unless current_saas
-                redirect_to "#{path_or_url}"
+                respond_to do |format|
+                  format.html { redirect_to "#{path_or_url}" }
+                  format.any { head :not_found }
+                end
               end
             end
         METHOD
